@@ -1,8 +1,9 @@
 <?php require_once 'process.php'; ?>
 <!DOCTYPE html>
 <html>
-<head>
-	<style>
+<head> 
+	<!--css para centralizar elementos-->
+	<style> 
 .center {
   margin: auto;
   width: 40%;
@@ -17,21 +18,22 @@
 <body>
 
 		<?php
-		if (isset($_SESSION['message'])): 
+		if (isset($_SESSION['message'])): //checa e mostra variavel message
 		?>
 
 		<div class="alert alert-<?=$_SESSION['msg_type']?>" >
 			
 			<?php 
-				echo $_SESSION['message'];
-				unset ($_SESSION['message']);	
+				echo $_SESSION['message']; //mostra a mensagem
+				unset ($_SESSION['message']); //esvazia a variavel message	
 			?>
 		</div>
 	<?php endif; ?>
 		<?php 
-				$result = $mysqli->query("SELECT * FROM produtos") or die ($mysqli->error);
+				$result = $mysqli->query("SELECT * FROM produtos") or die ($mysqli->error); //seleciona no banco de dados as informações
 				
-		?>
+		?>			
+					<!--container para mostrar os conteudos do banco em uma tabela-->
 					<div class="container">
 					<div class= "row align-items-center">
 					<table class="table">
@@ -40,31 +42,34 @@
 							<th>Nome</th>
 							<th>Valor</th>
 							<th>Estoque</th>
-							<th>Ações</th>
+							<th>Opções</th>
 						</tr>
 						</thead>
-						<?php while ($row = $result->fetch_assoc()): ?>
+						<?php while ($row = $result->fetch_assoc()): ?> <!-- loop para mostrar todos os arquivos do banco-->
 							<tr>
 								<td><?php echo $row['nome']; ?></td>
 								<td><?php echo $row['valor']; ?></td>
 								<td><?php echo $row['estoque']; ?></td>
 								<td> 
 								<a href=index.php?edit=<?php echo $row['id'];?> class="btn btn-info">Editar</a>
-								<a href=process.php?delete=<?php echo $row['id'];?> onclick="delFile()" class="btn btn-danger">Deletar</a>
+								<a href=process.php?delete=<?php echo $row['id'];?> onclick="return confirmaDeletar()" class="btn btn-danger">Deletar</a>
 								</td>
 							</tr>
-								<?php endwhile; ?>
+								<?php endwhile; ?> <!--fim  do loop-->
 						</table>
 
+			<!--função javascript para perguntar ao usuario se realmente deseja deletar o registro -->
 
-						<script>
-							
-						</script>
+			<script type="text/javascript">
+				function confirmaDeletar(){
+				return confirm('Tem certeza que deseja excluir o registro?');
+				}
+			</script>
 
 
 
 				<?php
-				pre_r($result->fetch_assoc());
+				pre_r($result->fetch_assoc());  //exibe o array de dados do banco
 
 				function pre_r ( $array ) {
 					echo '<pre>';
@@ -73,12 +78,13 @@
 
 				}
 
-		?>
+				?>
 
-
+		<!--formulário-->
 
 		<div class="center">
 		<form action="" method="POST">
+			<input type="hidden" name= "id" value = "<?php echo $id ?>">
 			<div class="form-group">
 			<input type="text" name="nome" value="<?php echo $nome ?>"placeholder="insira o nome do produto ">
 			</div>
@@ -89,10 +95,15 @@
 			<input type="text" name="estoque" value="<?php echo $estoque ?>" placeholder="insira a quantidade">
 			</div>
 			<div class="form-group">
-			<button type="submit" class="btn btn-primary" name="save">Salvar</button>
+				<?php if ($update == true): ?>
+					<button type="submit" class="btn btn-primary" name="update">Atualizar</button>
+				<?php else: ?>
+					<button type="submit" class="btn btn-primary" name="save">Salvar</button>
+				<?php endif; ?>
 			</div>
 		</div>
 		</div>
-		</form>	
+		</form>
+
 </body>
 </html>
