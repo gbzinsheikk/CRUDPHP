@@ -40,7 +40,7 @@
 							<th>Nome</th>
 							<th>Valor</th>
 							<th>Estoque</th>
-							<th>Ações</th>
+							<th>Opções</th>
 						</tr>
 						</thead>
 						<?php while ($row = $result->fetch_assoc()): ?>
@@ -50,16 +50,17 @@
 								<td><?php echo $row['estoque']; ?></td>
 								<td> 
 								<a href=index.php?edit=<?php echo $row['id'];?> class="btn btn-info">Editar</a>
-								<a href=process.php?delete=<?php echo $row['id'];?> onclick="delFile()" class="btn btn-danger">Deletar</a>
+								<a href=process.php?delete=<?php echo $row['id'];?> onclick="return confirmaDeletar()" class="btn btn-danger">Deletar</a>
 								</td>
 							</tr>
 								<?php endwhile; ?>
 						</table>
 
-
-						<script>
-							
-						</script>
+			<script type="text/javascript">
+				function confirmaDeletar(){
+				return confirm('Tem certeza que deseja excluir o registro?');
+				}
+			</script>
 
 
 
@@ -73,12 +74,13 @@
 
 				}
 
-		?>
+				?>
 
 
 
 		<div class="center">
 		<form action="" method="POST">
+			<input type="hidden" name= "id" value = "<?php echo $id ?>">
 			<div class="form-group">
 			<input type="text" name="nome" value="<?php echo $nome ?>"placeholder="insira o nome do produto ">
 			</div>
@@ -89,10 +91,15 @@
 			<input type="text" name="estoque" value="<?php echo $estoque ?>" placeholder="insira a quantidade">
 			</div>
 			<div class="form-group">
-			<button type="submit" class="btn btn-primary" name="save">Salvar</button>
+				<?php if ($update == true): ?>
+					<button type="submit" class="btn btn-primary" name="update">Atualizar</button>
+				<?php else: ?>
+					<button type="submit" class="btn btn-primary" name="save">Salvar</button>
+				<?php endif; ?>
 			</div>
 		</div>
 		</div>
-		</form>	
+		</form>
+
 </body>
 </html>
