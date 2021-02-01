@@ -5,7 +5,7 @@ error_reporting(E_ERROR);
 
 
 
-$mysqli = new mysqli('localhost', 'gabriel', '','crud') or die(mysqli_error($mysqli)); //login no banco de dados
+$mysqli = new mysqli('localhost', 'root', '','crud') or die(mysqli_error($mysqli)); //login no banco de dados
 
 $id = '';        //seta valores padrão de variáveis usadas ao longo do código
 $update = false;
