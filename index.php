@@ -14,9 +14,7 @@
 	<title> CRUD </title>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 </head>
-
 <body>
-
 		<?php
 		if (isset($_SESSION['message'])): //checa e mostra variavel message
 		?>
@@ -30,8 +28,7 @@
 		</div>
 	<?php endif; ?>
 		<?php 
-				$result = $mysqli->query("SELECT * FROM produtos") or die ($mysqli->error); //seleciona no banco de dados as informações
-				
+				$result = $mysqli->query("SELECT * FROM produtos") or die ($mysqli->error); //seleciona no banco de dados as informações		
 		?>			
 					<!--container para mostrar os conteudos do banco em uma tabela-->
 					<div class="container">
@@ -66,8 +63,6 @@
 				}
 			</script>
 
-
-
 				<?php
 				pre_r($result->fetch_assoc());  //exibe o array de dados do banco
 
@@ -76,11 +71,8 @@
 					print_r($array);
 					echo'</pre>';
 
-					//hhahahahahahahhahahahah
-
-				}
-
-				?>
+					//hhahahahahahahhahahahah borges
+				}	?>
 
 		<!--formulário-->
 

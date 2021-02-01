@@ -3,8 +3,6 @@ session_start(); //início do código
 ini_set("display_errors", 1); // mostra possíveis erros
 error_reporting(E_ERROR);
 
-
-
 $mysqli = new mysqli('localhost', 'root', '','crud') or die(mysqli_error($mysqli)); //login no banco de dados
 
 $id = '';        //seta valores padrão de variáveis usadas ao longo do código
@@ -31,7 +29,6 @@ if (isset($_POST['save'])){ //salva novos registros
 
 	$tratada=$mysqli->prepare($query); //trata a requisição de deleção, evitando SQL injection
 
-
 	$tratada->bind_param('i',$id);
 
 	$tratada->execute() or die (mysqli_error($mysqli));
@@ -40,6 +37,7 @@ if (isset($_POST['save'])){ //salva novos registros
 
 	header ("location: index.php");
 	exit();
+
 }else if (isset($_POST['update'])){ //atualiza os registros
 	$id = $_POST['id'];
 	$nome = $_POST['nome'];
@@ -51,7 +49,6 @@ if (isset($_POST['save'])){ //salva novos registros
 
 	$_SESSION['message'] = "Registro atualizado com sucesso!"; //define a mensagem
 	$_SESSION['msg_type'] = "success";
-
 
 	header ("location: index.php");
 	exit();
@@ -67,8 +64,4 @@ if (isset($_POST['save'])){ //salva novos registros
 		$valor = $row['valor'];
 		$estoque = $row['estoque'];
 	}
-
-}
-
-
-?>
+}?>
